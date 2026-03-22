@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📊 Excel to PDF | EasyUseHub</title>
+<style>
+body, html {
+    font-family: 'Segoe UI', sans-serif;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+.container {
+    width: 90%;
+    max-width: 650px;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    text-align: center;
+}
+h2 { margin-bottom: 10px; color: #1e293b; }
+p.description {
+    color: #475569;
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+    line-height: 1.6;
+    letter-spacing: 0.5px;
+    font-style: italic;
+}
+.upload {
+    padding: 25px;
+    border: 3px dashed #9333ea;
+    border-radius: 15px;
+    cursor: pointer;
+    margin-bottom: 12px;
+    font-weight: 600;
+    color: #9333ea;
+    transition: 0.3s;
+}
+.upload:hover { background: #f5e6fa; transform: scale(1.03); }
+button {
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    margin: 10px 3px;
+    background: #9333ea;
+    color: #fff;
+    transition: 0.3s;
+}
+button:hover { background: #7e22ce; }
+#download-btn { display:none; background:#2563eb; }
+#download-btn:hover { background:#1e40af; }
+#status { margin-top: 10px; color: #475569; }
+.bottom-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 20px;
+}
+.bottom-buttons a {
+    text-decoration: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    background: #1e293b;
+    color: #fff;
+    font-weight: 600;
+}
+.bottom-buttons a:hover { background: #3b82f6; }
+.ad-placeholder {
+    margin: 15px 0;
+    padding: 15px;
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    color: #999;
+    font-size: 0.9rem;
+    text-align: center;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+<h2>📄 Excel to PDF</h2>
+<p class="description">
+Convert your Excel files (.xlsx or .xls) to PDF instantly. Upload your Excel and download PDF in one click.
+</p>
+
+<div class="ad-placeholder">Top Ad Placeholder</div>
+
+<div class="upload" onclick="document.getElementById('file').click()">📁 Upload Excel</div>
+<input type="file" id="file" accept=".xlsx,.xls" hidden>
+
+<button id="convert-btn">Convert to PDF</button>
+<button id="download-btn">📥 Download PDF</button>
+<p id="status">No file selected</p>
+
+<!-- Bottom Buttons -->
+<div class="bottom-buttons">
+    <a href="#">📂 All PDF Tools</a>
+    <a href="#">🏠 Home</a>
+</div>
+
+<div class="ad-placeholder">Middle Ad Placeholder</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+<script>
+let file = null;
+
+document.getElementById('file').addEventListener('change', (e)=>{
+    file = e.target.files[0];
+    if(!file) return;
+    document.getElementById('status').textContent = `✔ ${file.name} selected`;
+});
+
+document.getElementById('convert-btn').addEventListener('click', async ()=>{
+    if(!file){ alert('Upload Excel first'); return; }
+    document.getElementById('status').textContent = 'Converting Excel to PDF...';
+
+    const arrayBuffer = await file.arrayBuffer();
+    const workbook = XLSX.read(arrayBuffer, {type:"array"});
+    const pdfDoc = await PDFLib.PDFDocument.create();
+
+    workbook.SheetNames.forEach(name=>{
+        const sheet = workbook.Sheets[name];
+        const csv = XLSX.utils.sheet_to_csv(sheet);
+        const page = pdfDoc.addPage();
+        const {width, height} = page.getSize();
+        page.drawText(csv,{x:20,y:height-40,size:12});
+    });
+
+    const pdfBytes = await pdfDoc.save();
+    const url = URL.createObjectURL(new Blob([pdfBytes], {type:'application/pdf'}));
+    const downloadBtn = document.getElementById('download-btn');
+    downloadBtn.style.display='block';
+    downloadBtn.onclick = ()=>{ 
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = file.name.replace(/\.xlsx|\.xls$/i, '.pdf');
+        a.click();
+    };
+
+    document.getElementById('status').textContent = '✔ Conversion complete! Download your PDF.';
+});
+</script>
+
+</body>
+</html>
