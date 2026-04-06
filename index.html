@@ -3,36 +3,39 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>📄 Excel to PDF (High Speed) | EasyUseHub</title>
+<title>📄 Excel to PDF (Pro) | EasyUseHub</title>
 <style>
-body, html { font-family: 'Segoe UI', sans-serif; background: #f8fafc; margin:0; padding:0; text-align: center; }
-header { background: linear-gradient(135deg, #1e40af, #2563eb); color:#fff; padding:20px; text-align:center; box-shadow:0 4px 15px rgba(0,0,0,0.1); }
-.container { width: 95%; max-width: 750px; margin: 20px auto; padding: 15px; box-sizing: border-box; }
+/* EasyUseHub Professional Theme */
+body, html { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f8fafc; margin:0; padding:0; text-align: center; color: #1e293b; }
+header { background: linear-gradient(135deg, #1e40af, #2563eb); color:#fff; padding:25px; text-align:center; box-shadow:0 4px 15px rgba(0,0,0,0.1); }
+.container { width: 95%; max-width: 800px; margin: 20px auto; padding: 15px; box-sizing: border-box; }
 
-/* EasyUseHub Custom Ads */
+/* Custom Ad Bridge - Brand Identity */
 .custom-ad-bridge { background: #fff; border-left: 6px solid #fbbf24; padding: 18px; margin: 20px auto; border-radius: 12px; cursor: pointer; text-align: left; box-shadow: 0 4px 15px rgba(0,0,0,0.06); transition: transform 0.2s ease; }
 .custom-ad-bridge:hover { transform: translateY(-3px); }
 .ad-title { font-size: 16px; font-weight: bold; color: #2563eb; display: block; margin-bottom: 6px; }
 .ad-desc { font-size: 12px; color: #64748b; line-height: 1.5; display: block; margin-bottom: 10px; }
 .ad-btn { background: #2563eb; color: #fff; padding: 8px 16px; border-radius: 6px; font-weight: bold; font-size: 11px; border:none; text-transform: uppercase; cursor:pointer;}
 
-.upload { padding: 45px; border: 3px dashed #cbd5e1; border-radius: 18px; background:#fff; margin:20px 0; cursor:pointer; color: #64748b; font-weight: bold; transition: 0.3s; }
-.upload:hover { border-color: #2563eb; background: #f0f7ff; color: #2563eb; }
+.upload-section { padding: 50px 20px; border: 3px dashed #cbd5e1; border-radius: 20px; background:#fff; margin:25px 0; cursor:pointer; transition: 0.3s; }
+.upload-section:hover { border-color: #2563eb; background: #f0f7ff; }
+.upload-icon { font-size: 40px; display: block; margin-bottom: 10px; }
 
-button { padding: 15px 35px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; margin: 10px 5px; background: #10b981; color: #fff; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2); transition: 0.3s; }
-button:disabled { background: #94a3b8; cursor: wait; }
-#download-btn { display:none; background:#2563eb; }
+button { padding: 16px 40px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; margin: 10px 5px; font-size: 15px; transition: 0.3s; }
+#convert-btn { background: #10b981; color: #fff; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2); }
+#convert-btn:disabled { background: #94a3b8; cursor: not-allowed; }
+#download-btn { display:none; background:#2563eb; color: #fff; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2); }
 
-.bottom-buttons { display: flex; justify-content: center; gap: 12px; margin-top: 30px; }
-.bottom-buttons a { text-decoration: none; padding: 12px 22px; border-radius: 10px; background: #334155; color: #fff; font-weight: bold; font-size: 13px; }
+.bottom-nav { display: flex; justify-content: center; gap: 15px; margin-top: 35px; }
+.bottom-nav a { text-decoration: none; padding: 12px 25px; border-radius: 10px; background: #334155; color: #fff; font-weight: bold; font-size: 13px; }
 
-#status { margin-top: 15px; color: #1e293b; font-weight: bold; font-size: 14px; padding: 10px; border-radius: 8px; }
-progress { width: 100%; height: 12px; margin-top: 10px; display: none; accent-color: #10b981; }
+#status-msg { margin-top: 20px; font-weight: 600; padding: 12px; border-radius: 8px; display: inline-block; min-width: 250px; }
+progress { width: 100%; height: 12px; margin-top: 15px; display: none; accent-color: #10b981; }
 </style>
 </head>
 <body>
 
-<header><h1>Excel to PDF (Supports up to 25MB)</h1></header>
+<header><h1>Excel to PDF Converter</h1></header>
 
 <div class="container">
     <div class="custom-ad-bridge" onclick="window.open('https://easyusehub.blogspot.com', '_blank')">
@@ -41,15 +44,19 @@ progress { width: 100%; height: 12px; margin-top: 10px; display: none; accent-co
         <button class="ad-btn">Explore For Free</button>
     </div>
 
-    <div class="upload" onclick="document.getElementById('file').click()">📁 Click to Upload Excel (Max 25MB)</div>
-    <input type="file" id="file" accept=".xlsx,.xls" hidden>
+    <div class="upload-section" onclick="document.getElementById('fileInput').click()">
+        <span class="upload-icon">📊</span>
+        <strong>Click to Upload Excel (xlsx/xls)</strong>
+        <p style="color:#64748b; font-size:13px;">Supports large files up to 25MB</p>
+    </div>
+    <input type="file" id="fileInput" accept=".xlsx,.xls" hidden>
 
-    <div id="status">Please select a file to begin.</div>
-    <progress id="prog-bar" value="0" max="100"></progress>
+    <div id="status-msg">No file selected</div>
+    <progress id="progressBar" value="0" max="100"></progress>
 
-    <div class="main-actions">
-        <button id="convert-btn">🌐 Start High-Speed Conversion</button>
-        <button id="download-btn">📥 Download Result</button>
+    <div class="actions">
+        <button id="convert-btn">🌐 Convert Now</button>
+        <button id="download-btn">📥 Download PDF</button>
     </div>
 
     <div class="custom-ad-bridge" style="border-left-color: #8b5cf6;" onclick="window.open('https://easyusehub.blogspot.com', '_blank')">
@@ -58,7 +65,7 @@ progress { width: 100%; height: 12px; margin-top: 10px; display: none; accent-co
         <button class="ad-btn" style="background:#8b5cf6;">Try Calculators</button>
     </div>
 
-    <div class="bottom-buttons">
+    <div class="bottom-nav">
         <a href="https://easyusehub.blogspot.com/?m=1">🏠 Home</a>
         <a href="https://easyusehub.blogspot.com/p/free-pdf-tools-online.html">📂 All Tools</a>
     </div>
@@ -74,54 +81,73 @@ progress { width: 100%; height: 12px; margin-top: 10px; display: none; accent-co
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
 <script>
-let excelFile = null;
-const MAX_SIZE = 25 * 1024 * 1024; // 25 MB
+let selectedFile = null;
+const MAX_MB = 25 * 1024 * 1024; 
 
-document.getElementById('file').addEventListener('change', (e)=>{
-    let selected = e.target.files[0];
-    if(selected && selected.size > MAX_SIZE) {
-        alert("File is too large! Maximum limit is 25MB.");
+document.getElementById('fileInput').addEventListener('change', (e)=>{
+    let file = e.target.files[0];
+    if(file && file.size > MAX_MB) {
+        alert("File too large! Max 25MB allowed.");
         e.target.value = "";
         return;
     }
-    excelFile = selected;
-    if(excelFile) document.getElementById('status').innerHTML = `✅ Ready: ${excelFile.name} (${(excelFile.size/1024/1024).toFixed(2)} MB)`;
+    selectedFile = file;
+    if(selectedFile) {
+        document.getElementById('status-msg').innerHTML = `✅ Ready: ${selectedFile.name}`;
+        document.getElementById('status-msg').style.background = "#e0f2fe";
+    }
 });
 
 document.getElementById('convert-btn').addEventListener('click', async ()=>{
-    if(!excelFile) return alert('Please upload a file!');
+    if(!selectedFile) return alert('Upload a file first!');
     
-    const status = document.getElementById('status');
-    const progBar = document.getElementById('prog-bar');
-    const convBtn = document.getElementById('convert-btn');
+    const status = document.getElementById('status-msg');
+    const progress = document.getElementById('progressBar');
+    const btn = document.getElementById('convert-btn');
 
-    convBtn.disabled = true;
-    progBar.style.display = 'block';
-    status.style.background = "#fef9c3";
-    status.innerHTML = '⚙️ Reading Excel structure...';
+    btn.disabled = true;
+    progress.style.display = 'block';
+    status.innerHTML = '⚙️ Reading Data...';
 
     try {
-        const arrayBuffer = await excelFile.arrayBuffer();
-        const workbook = XLSX.read(arrayBuffer, {type:"array", cellDates:true});
+        const data = await selectedFile.arrayBuffer();
+        const workbook = XLSX.read(data, {type: "array"});
         const pdfDoc = await PDFLib.PDFDocument.create();
+        const font = await pdfDoc.embedFont(PDFLib.StandardFonts.Helvetica);
         
-        let sheets = workbook.SheetNames;
+        const sheets = workbook.SheetNames;
         for (let i = 0; i < sheets.length; i++) {
-            status.innerHTML = `⚙️ Processing Sheet ${i+1} of ${sheets.length}...`;
+            status.innerHTML = `⚙️ Converting Sheet ${i+1}/${sheets.length}...`;
             const sheet = workbook.Sheets[sheets[i]];
-            const csv = XLSX.utils.sheet_to_csv(sheet);
+            const rows = XLSX.utils.sheet_to_json(sheet, {header: 1});
             
-            if(csv.trim()) {
-                const page = pdfDoc.addPage();
-                const { height } = page.getSize();
-                // Substring for stability if sheet is massive
-                page.drawText(csv.substring(0, 10000), { x: 30, y: height - 40, size: 7, lineHeight: 9 });
+            let page = pdfDoc.addPage([600, 800]);
+            let { width, height } = page.getSize();
+            let yPos = height - 50;
+            const margin = 40;
+            const fontSize = 11; // বড় এবং স্পষ্ট ফন্ট সাইজ
+
+            for (const row of rows) {
+                // কলামগুলোকে সুন্দরভাবে সাজানো
+                const text = row.map(cell => (cell === null || cell === undefined) ? "" : String(cell)).join("  |  ");
+                
+                if (yPos < margin) {
+                    page = pdfDoc.addPage([600, 800]);
+                    yPos = height - 50;
+                }
+
+                page.drawText(text.substring(0, 120), { // কলাম ওভারফ্লো রোধ করতে লিমিট
+                    x: margin,
+                    y: yPos,
+                    size: fontSize,
+                    font: font
+                });
+                yPos -= 20;
             }
-            progBar.value = ((i + 1) / sheets.length) * 100;
-            await new Promise(r => setTimeout(r, 50)); // Memory breath
+            progress.value = ((i + 1) / sheets.length) * 100;
+            await new Promise(r => setTimeout(r, 60)); // ব্রেথিং টাইম
         }
 
-        status.innerHTML = '💾 Finalizing PDF file...';
         const pdfBytes = await pdfDoc.save();
         const blob = new Blob([pdfBytes], {type: 'application/pdf'});
         const url = URL.createObjectURL(blob);
@@ -129,24 +155,22 @@ document.getElementById('convert-btn').addEventListener('click', async ()=>{
         const dlBtn = document.getElementById('download-btn');
         dlBtn.style.display = 'inline-block';
         dlBtn.onclick = () => {
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = excelFile.name.replace(/\.[^/.]+$/, "") + "_EasyUseHub.pdf";
-            link.click();
-            // Cleanup memory after download
-            setTimeout(() => URL.revokeObjectURL(url), 10000);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = selectedFile.name.replace(/\.[^/.]+$/, "") + "_EasyUseHub.pdf";
+            a.click();
+            setTimeout(() => URL.revokeObjectURL(url), 5000);
         };
 
+        status.innerHTML = '✅ Conversion Complete!';
         status.style.background = "#dcfce7";
-        status.innerHTML = '✅ Conversion Success! Download your PDF below.';
-        progBar.style.display = 'none';
-        convBtn.disabled = false;
+        progress.style.display = 'none';
+        btn.disabled = false;
 
     } catch (err) {
+        status.innerHTML = '❌ Error processing file.';
         status.style.background = "#fee2e2";
-        status.innerHTML = '❌ Error: The file might be corrupted or too complex.';
-        convBtn.disabled = false;
-        progBar.style.display = 'none';
+        btn.disabled = false;
     }
 });
 </script>
