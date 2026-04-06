@@ -3,153 +3,152 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>📄 Excel to PDF | EasyUseHub</title>
+<title>📄 Excel to PDF (High Speed) | EasyUseHub</title>
 <style>
-body, html {
-    font-family: 'Segoe UI', sans-serif;
-    background: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-}
-.container {
-    width: 90%;
-    max-width: 650px;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-    text-align: center;
-}
-h2 { margin-bottom: 10px; color: #1e293b; }
-p.description {
-    color: #475569;
-    font-size: 0.95rem;
-    margin-bottom: 20px;
-    line-height: 1.6;
-    letter-spacing: 0.5px;
-    font-style: italic;
-}
-.upload {
-    padding: 25px;
-    border: 3px dashed #9333ea;
-    border-radius: 15px;
-    cursor: pointer;
-    margin-bottom: 12px;
-    font-weight: 600;
-    color: #9333ea;
-    transition: 0.3s;
-}
-.upload:hover { background: #f5e6fa; transform: scale(1.03); }
-button {
-    padding: 12px;
-    border: none;
-    border-radius: 10px;
-    font-weight: 600;
-    cursor: pointer;
-    margin: 10px 3px;
-    background: #9333ea;
-    color: #fff;
-    transition: 0.3s;
-}
-button:hover { background: #7e22ce; }
+body, html { font-family: 'Segoe UI', sans-serif; background: #f8fafc; margin:0; padding:0; text-align: center; }
+header { background: linear-gradient(135deg, #1e40af, #2563eb); color:#fff; padding:20px; text-align:center; box-shadow:0 4px 15px rgba(0,0,0,0.1); }
+.container { width: 95%; max-width: 750px; margin: 20px auto; padding: 15px; box-sizing: border-box; }
+
+/* EasyUseHub Custom Ads */
+.custom-ad-bridge { background: #fff; border-left: 6px solid #fbbf24; padding: 18px; margin: 20px auto; border-radius: 12px; cursor: pointer; text-align: left; box-shadow: 0 4px 15px rgba(0,0,0,0.06); transition: transform 0.2s ease; }
+.custom-ad-bridge:hover { transform: translateY(-3px); }
+.ad-title { font-size: 16px; font-weight: bold; color: #2563eb; display: block; margin-bottom: 6px; }
+.ad-desc { font-size: 12px; color: #64748b; line-height: 1.5; display: block; margin-bottom: 10px; }
+.ad-btn { background: #2563eb; color: #fff; padding: 8px 16px; border-radius: 6px; font-weight: bold; font-size: 11px; border:none; text-transform: uppercase; cursor:pointer;}
+
+.upload { padding: 45px; border: 3px dashed #cbd5e1; border-radius: 18px; background:#fff; margin:20px 0; cursor:pointer; color: #64748b; font-weight: bold; transition: 0.3s; }
+.upload:hover { border-color: #2563eb; background: #f0f7ff; color: #2563eb; }
+
+button { padding: 15px 35px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; margin: 10px 5px; background: #10b981; color: #fff; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2); transition: 0.3s; }
+button:disabled { background: #94a3b8; cursor: wait; }
 #download-btn { display:none; background:#2563eb; }
-#download-btn:hover { background:#1e40af; }
-#status { margin-top: 10px; color: #475569; }
-.bottom-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    margin-top: 20px;
-}
-.bottom-buttons a {
-    text-decoration: none;
-    padding: 10px 16px;
-    border-radius: 8px;
-    background: #1e293b;
-    color: #fff;
-    font-weight: 600;
-}
-.bottom-buttons a:hover { background: #3b82f6; }
-.ad-placeholder {
-    margin: 15px 0;
-    padding: 15px;
-    border: 2px dashed #ccc;
-    border-radius: 10px;
-    color: #999;
-    font-size: 0.9rem;
-    text-align: center;
-}
+
+.bottom-buttons { display: flex; justify-content: center; gap: 12px; margin-top: 30px; }
+.bottom-buttons a { text-decoration: none; padding: 12px 22px; border-radius: 10px; background: #334155; color: #fff; font-weight: bold; font-size: 13px; }
+
+#status { margin-top: 15px; color: #1e293b; font-weight: bold; font-size: 14px; padding: 10px; border-radius: 8px; }
+progress { width: 100%; height: 12px; margin-top: 10px; display: none; accent-color: #10b981; }
 </style>
 </head>
 <body>
 
+<header><h1>Excel to PDF (Supports up to 25MB)</h1></header>
+
 <div class="container">
-<h2>📄 Excel to PDF</h2>
-<p class="description">
-Convert your Excel files (.xlsx or .xls) to PDF instantly. Upload your Excel and download PDF in one click.
-</p>
+    <div class="custom-ad-bridge" onclick="window.open('https://easyusehub.blogspot.com', '_blank')">
+        <span class="ad-title">🚀 Unlock 46+ Premium Online Tools</span>
+        <span class="ad-desc">Professional PDF Management, Image Converters & more! Secure & Fast.</span>
+        <button class="ad-btn">Explore For Free</button>
+    </div>
 
-<div class="ad-placeholder">Top Ad Placeholder</div>
+    <div class="upload" onclick="document.getElementById('file').click()">📁 Click to Upload Excel (Max 25MB)</div>
+    <input type="file" id="file" accept=".xlsx,.xls" hidden>
 
-<div class="upload" onclick="document.getElementById('file').click()">📁 Upload Excel</div>
-<input type="file" id="file" accept=".xlsx,.xls" hidden>
+    <div id="status">Please select a file to begin.</div>
+    <progress id="prog-bar" value="0" max="100"></progress>
 
-<button id="convert-btn">Convert to PDF</button>
-<button id="download-btn">📥 Download PDF</button>
-<p id="status">No file selected</p>
+    <div class="main-actions">
+        <button id="convert-btn">🌐 Start High-Speed Conversion</button>
+        <button id="download-btn">📥 Download Result</button>
+    </div>
 
-<!-- Bottom Buttons -->
-<div class="bottom-buttons">
-    <a href="https://easyusehub.blogspot.com/p/free-pdf-tools-online.html" target="_blank">📂 All PDF Tools</a>
-    <a href="https://easyusehub.blogspot.com/?m=1" target="_blank">🏠 Home</a>
-</div>
+    <div class="custom-ad-bridge" style="border-left-color: #8b5cf6;" onclick="window.open('https://easyusehub.blogspot.com', '_blank')">
+        <span class="ad-title" style="color:#8b5cf6;">🔢 Smart Online Calculators</span>
+        <span class="ad-desc">Need to calculate Age, BMI, or Loan EMI? High-speed accurate results.</span>
+        <button class="ad-btn" style="background:#8b5cf6;">Try Calculators</button>
+    </div>
 
-<div class="ad-placeholder">Middle Ad Placeholder</div>
+    <div class="bottom-buttons">
+        <a href="https://easyusehub.blogspot.com/?m=1">🏠 Home</a>
+        <a href="https://easyusehub.blogspot.com/p/free-pdf-tools-online.html">📂 All Tools</a>
+    </div>
+
+    <div class="custom-ad-bridge" style="border-left-color: #10b981;" onclick="window.open('https://easyusehub.blogspot.com', '_blank')">
+        <span class="ad-title" style="color:#10b981;">⚡ Ultra-Fast Image Compressor</span>
+        <span class="ad-desc">Optimize images for your web projects without losing any quality.</span>
+        <button class="ad-btn" style="background:#10b981;">Compress Now</button>
+    </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
 <script>
-let file = null;
+let excelFile = null;
+const MAX_SIZE = 25 * 1024 * 1024; // 25 MB
 
 document.getElementById('file').addEventListener('change', (e)=>{
-    file = e.target.files[0];
-    if(!file) return;
-    document.getElementById('status').textContent = `✔ ${file.name} selected`;
+    let selected = e.target.files[0];
+    if(selected && selected.size > MAX_SIZE) {
+        alert("File is too large! Maximum limit is 25MB.");
+        e.target.value = "";
+        return;
+    }
+    excelFile = selected;
+    if(excelFile) document.getElementById('status').innerHTML = `✅ Ready: ${excelFile.name} (${(excelFile.size/1024/1024).toFixed(2)} MB)`;
 });
 
 document.getElementById('convert-btn').addEventListener('click', async ()=>{
-    if(!file){ alert('Upload Excel first'); return; }
-    document.getElementById('status').textContent = 'Converting Excel to PDF...';
+    if(!excelFile) return alert('Please upload a file!');
+    
+    const status = document.getElementById('status');
+    const progBar = document.getElementById('prog-bar');
+    const convBtn = document.getElementById('convert-btn');
 
-    const arrayBuffer = await file.arrayBuffer();
-    const workbook = XLSX.read(arrayBuffer, {type:"array"});
-    const pdfDoc = await PDFLib.PDFDocument.create();
+    convBtn.disabled = true;
+    progBar.style.display = 'block';
+    status.style.background = "#fef9c3";
+    status.innerHTML = '⚙️ Reading Excel structure...';
 
-    workbook.SheetNames.forEach(name=>{
-        const sheet = workbook.Sheets[name];
-        const csv = XLSX.utils.sheet_to_csv(sheet);
-        const page = pdfDoc.addPage();
-        const {width, height} = page.getSize();
-        page.drawText(csv,{x:20,y:height-40,size:12});
-    });
+    try {
+        const arrayBuffer = await excelFile.arrayBuffer();
+        const workbook = XLSX.read(arrayBuffer, {type:"array", cellDates:true});
+        const pdfDoc = await PDFLib.PDFDocument.create();
+        
+        let sheets = workbook.SheetNames;
+        for (let i = 0; i < sheets.length; i++) {
+            status.innerHTML = `⚙️ Processing Sheet ${i+1} of ${sheets.length}...`;
+            const sheet = workbook.Sheets[sheets[i]];
+            const csv = XLSX.utils.sheet_to_csv(sheet);
+            
+            if(csv.trim()) {
+                const page = pdfDoc.addPage();
+                const { height } = page.getSize();
+                // Substring for stability if sheet is massive
+                page.drawText(csv.substring(0, 10000), { x: 30, y: height - 40, size: 7, lineHeight: 9 });
+            }
+            progBar.value = ((i + 1) / sheets.length) * 100;
+            await new Promise(r => setTimeout(r, 50)); // Memory breath
+        }
 
-    const pdfBytes = await pdfDoc.save();
-    const url = URL.createObjectURL(new Blob([pdfBytes], {type:'application/pdf'}));
-    const downloadBtn = document.getElementById('download-btn');
-    downloadBtn.style.display='block';
-    downloadBtn.onclick = ()=>{ 
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = file.name.replace(/\.xlsx|\.xls$/i, '.pdf');
-        a.click();
-    };
+        status.innerHTML = '💾 Finalizing PDF file...';
+        const pdfBytes = await pdfDoc.save();
+        const blob = new Blob([pdfBytes], {type: 'application/pdf'});
+        const url = URL.createObjectURL(blob);
+        
+        const dlBtn = document.getElementById('download-btn');
+        dlBtn.style.display = 'inline-block';
+        dlBtn.onclick = () => {
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = excelFile.name.replace(/\.[^/.]+$/, "") + "_EasyUseHub.pdf";
+            link.click();
+            // Cleanup memory after download
+            setTimeout(() => URL.revokeObjectURL(url), 10000);
+        };
 
-    document.getElementById('status').textContent = '✔ Conversion complete! Download your PDF.';
+        status.style.background = "#dcfce7";
+        status.innerHTML = '✅ Conversion Success! Download your PDF below.';
+        progBar.style.display = 'none';
+        convBtn.disabled = false;
+
+    } catch (err) {
+        status.style.background = "#fee2e2";
+        status.innerHTML = '❌ Error: The file might be corrupted or too complex.';
+        convBtn.disabled = false;
+        progBar.style.display = 'none';
+    }
 });
 </script>
-
 </body>
 </html>
